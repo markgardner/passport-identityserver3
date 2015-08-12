@@ -1,0 +1,26 @@
+{
+  "name": "passport-identityserver3",
+  "version": "0.1.0",
+  "description": "Passport strategy for IdentityServer3 OpenID Connect Provider",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:markgardner/passport-identityserver3.git"
+  },
+  "keywords": [
+    "IdentityServer",
+    "IdentityServer3",
+    "openidconnect",
+    "passport",
+    "oidc"
+  ],
+  "author": "Mark Gardner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markgardner/passport-identityserver3/issues"
+  },
+  "homepage": "https://github.com/markgardner/passport-identityserver3"
+}
