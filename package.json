@@ -22,5 +22,16 @@
   "bugs": {
     "url": "https://github.com/markgardner/passport-identityserver3/issues"
   },
-  "homepage": "https://github.com/markgardner/passport-identityserver3"
+  "homepage": "https://github.com/markgardner/passport-identityserver3",
+  "dependencies": {
+    "json-extend": "^0.1.0",
+    "jsonwebtoken": "^5.0.4"
+  },
+  "peerDependencies": {
+    "passport": "^0.2.2"
+  },
+  "devDependencies": {
+    "express": "^4.13.3",
+    "express-session": "^1.11.3"
+  }
 }
