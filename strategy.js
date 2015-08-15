@@ -37,7 +37,8 @@ Strategy.prototype.authenticate = function(req, options) {
             return this.error(new Error('State does not match session.'));
         }
 
-        var self = this;
+        var self = this,
+            config = self.config;
 
         this.client.getTokens(req, function(err, data) {
             var user;
@@ -45,6 +46,10 @@ Strategy.prototype.authenticate = function(req, options) {
             if(err) {
                 self.error(err);
             } else if(user = self.validateToken(data.id_token)) {
+                if(config.transformIdentity) {
+                    user = config.transformIdentity(user);
+                }
+
                 self.success(user);
             } else {
                 req._passport.session.tokens = null;

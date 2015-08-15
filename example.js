@@ -45,7 +45,10 @@ passport.use(new Identity3Strategy('custom_name', {
     client_id: 'your_client_id',
     client_secret: 'your_client_secret',
     callback_url: '/login',
-    scopes: ['profile', 'offline_access']
+    scopes: ['profile', 'offline_access'],
+    transformIdentity: function(identity) {
+        return identity;
+    }
 }));
 
 passport.serializeUser(function(user, done) {
