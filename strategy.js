@@ -79,7 +79,7 @@ Strategy.prototype.endSession = function(req, res) {
 
     // Clean up session for passport just in case express session is not being used.
     req.logout();
-    session.tokens = null;
+    req._passport.session.tokens = null;
 
     // Destroy express session if possible
     if(req.session && req.session.destroy) {
