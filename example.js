@@ -21,11 +21,15 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
+    var strategy = passport._strategy('custom_name'),
+        profileScopes = ['profile'],
+        additionalClaims = null; // Optionally you can specify specific claims to request as an array of string.
+
     res.writeHead(200, {
         'Content-Type': 'text/html'
     });
-
-    passport._strategy('custom_name').profile(req, ['profile'], null, function(err, profile) {
+    
+    strategy.profile(req, profileScopes, additionalClaims, function(err, profile) {
         res.end('<html><body>Logged in, <a href="/logout">Logout</a><pre>' + JSON.stringify(profile, null, 2) + '</pre></body></html>');
     });
 });
