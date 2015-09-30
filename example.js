@@ -40,6 +40,7 @@ app.get('/logout', function(req, res) {
     passport._strategy('custom_name').endSession(req, res);
 });
 
+// Strategy allows you to overwrite the identifier. It will be 'identity3-oidc' by default if you only give the constructor the config object.
 passport.use(new Identity3Strategy('custom_name', {
     configuration_endpoint: 'https://localhost:44333/.well-known/openid-configuration',
     client_id: 'your_client_id',
@@ -48,6 +49,10 @@ passport.use(new Identity3Strategy('custom_name', {
     scopes: ['profile', 'offline_access'],
     transformIdentity: function(identity) {
         return identity;
+    },
+    onEndSession: function(req, res) {
+        // shouldn't end or write to res since the framework will be redirecting.
+        // there just in case you need it.
     }
 }));
 

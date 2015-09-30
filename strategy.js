@@ -11,7 +11,7 @@ function Strategy(identifier, config) {
     }
 
     if(!config || !config.client_id || !config.client_secret || !config.callback_url) {
-        throw new Error('The require config settings are not present [client_id, client_secret, callback_url]');
+        throw new Error('The required config settings are not present [client_id, client_secret, callback_url]');
     }
 
     passport.Strategy.call(this);
@@ -86,6 +86,11 @@ Strategy.prototype.endSession = function(req, res) {
         req.session.destroy();
     }
 
+    // Allow app to do some cleanup if needed
+    if(this.config.onEndSession) {
+        this.config.onEndSession(req, res);
+    }
+
     res.redirect(endSessionUrl);
 };
 
@@ -134,6 +139,9 @@ Strategy.prototype.discover = function(config) {
                 
                 origAuth.apply(self, pending);
             });
+
+            // Remove refs to allow gc.
+            pendingAuth = null;
         });
     });
 };
