@@ -1,6 +1,6 @@
 {
   "name": "passport-identityserver3",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Passport strategy for IdentityServer3 OpenID Connect Provider",
   "main": "index.js",
   "scripts": {
@@ -28,10 +28,11 @@
     "jsonwebtoken": "^5.0.4"
   },
   "peerDependencies": {
-    "passport": "^0.2.2"
+    "passport": ">= 0.2.2 <= 0.3.0"
   },
   "devDependencies": {
     "express": "^4.13.3",
-    "express-session": "^1.11.3"
+    "express-session": "^1.11.3",
+    "passport": "^0.3.0"
   }
 }

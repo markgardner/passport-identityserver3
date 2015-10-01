@@ -33,7 +33,7 @@ Strategy.prototype.authenticate = function(req, options) {
     if(req.query.error) {
         return this.error(new Error(req.query.error));
     } else if(req.query.code) {
-        if(!req._passport.session.tokens || req.query.state !== req._passport.session.tokens.state) {
+        if(!req.session.tokens || req.query.state !== req.session.tokens.state) {
             return this.error(new Error('State does not match session.'));
         }
 
@@ -52,13 +52,13 @@ Strategy.prototype.authenticate = function(req, options) {
 
                 self.success(user);
             } else {
-                req._passport.session.tokens = null;
+                req.session.tokens = null;
             }
         });
     } else {
         var state = common.randomHex(16);
 
-        req._passport.session.tokens = {
+        req.session.tokens = {
             state: state
         };
 
@@ -79,7 +79,7 @@ Strategy.prototype.endSession = function(req, res) {
 
     // Clean up session for passport just in case express session is not being used.
     req.logout();
-    req._passport.session.tokens = null;
+    req.session.tokens = null;
 
     // Destroy express session if possible
     if(req.session && req.session.destroy) {

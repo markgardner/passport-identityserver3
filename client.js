@@ -17,7 +17,7 @@ Client.prototype.getTokens = function(req, callback) {
             redirect_uri: this.callbackUrl(req)
         };
 
-    getAccessToken(req._passport.session, config, params, callback);
+    getAccessToken(req.session, config, params, callback);
 };
 
 Client.prototype.getProfile = function(req, scopes, claims, callback) {
@@ -40,7 +40,7 @@ Client.prototype.getProfile = function(req, scopes, claims, callback) {
 }
 
 Client.prototype.ensureActiveToken = function(req, callback) {
-    var tokens = req._passport.session.tokens,
+    var tokens = req.session.tokens,
         config = this.config,
         params;
 
@@ -63,7 +63,7 @@ Client.prototype.ensureActiveToken = function(req, callback) {
             scope: this.scope()
         };
 
-        getAccessToken(req._passport.session, config, params, tokenHandle);
+        getAccessToken(req.session, config, params, tokenHandle);
     }
 };
 
@@ -85,7 +85,7 @@ Client.prototype.authorizationUrl = function(req, state) {
 };
 
 Client.prototype.getEndSessionUrl = function(req) {
-    var session = req._passport.session,
+    var session = req.session,
         params = {
             id_token_hint: session.tokens.id_token,
             post_logout_redirect_uri: this.config.post_logout_redirect_uri || common.resolveUrl(req, '/')
