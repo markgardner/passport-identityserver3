@@ -107,11 +107,16 @@ Strategy.prototype.validateToken = function(token) {
 
         if(!this.config.keys || !this.config.keys.length) {
             this.error(new Error('No keys configured for verifying tokens'));
+
+            return false;
         }
 
         cert = common.formatCert(this.config.keys[0].x5c[0]);
 
-        return jwt.verify(token, cert);
+        return jwt.verify(token, cert, {
+            audience: this.config.audience || this.config.client_id,
+            issuer: this.config.issuer
+        });
     } catch (e) {
         this.error(e);
     }
