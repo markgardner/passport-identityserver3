@@ -47,10 +47,16 @@ Strategy.prototype.authenticate = function(req, options) {
                 self.error(err);
             } else if(user = self.validateToken(data.id_token)) {
                 if(config.transformIdentity) {
-                    user = config.transformIdentity(user);
+                    if(config.transformIdentity.length === 1) {
+                        user = config.transformIdentity(user);
+                        
+                        self.success(user);
+                    } else {
+                        config.transformIdentity(user, self.success, self.error);
+                    }
+                } else {
+                    self.success(user);
                 }
-
-                self.success(user);
             } else {
                 req.session.tokens = null;
             }
