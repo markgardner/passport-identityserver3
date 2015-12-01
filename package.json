@@ -28,7 +28,7 @@
     "jsonwebtoken": "^5.0.4"
   },
   "peerDependencies": {
-    "passport": ">= 0.2.2 <= 0.3.0"
+    "passport": ">= 0.2.2 <= 0.3"
   },
   "devDependencies": {
     "express": "^4.13.3",
