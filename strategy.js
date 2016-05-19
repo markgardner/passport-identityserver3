@@ -49,7 +49,7 @@ Strategy.prototype.authenticate = function(req, options) {
                 if(config.transformIdentity) {
                     if(config.transformIdentity.length === 1) {
                         user = config.transformIdentity(user);
-                        
+
                         self.success(user);
                     } else {
                         config.transformIdentity(user, self.success, self.error);
@@ -115,7 +115,8 @@ Strategy.prototype.validateToken = function(token) {
 
         return jwt.verify(token, cert, {
             audience: this.config.audience || this.config.client_id,
-            issuer: this.config.issuer
+            issuer: this.config.issuer,
+            ignoreNotBefore: !!this.config.ignoreNotBefore
         });
     } catch (e) {
         this.error(e);
@@ -147,7 +148,7 @@ Strategy.prototype.discover = function(config) {
 
             pendingAuth.forEach(function(pending) {
                 var self = pending.shift();
-                
+
                 origAuth.apply(self, pending);
             });
 
