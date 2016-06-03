@@ -116,7 +116,8 @@ Strategy.prototype.validateToken = function(token) {
         return jwt.verify(token, cert, {
             audience: this.config.audience || this.config.client_id,
             issuer: this.config.issuer,
-            ignoreNotBefore: !!this.config.ignoreNotBefore
+            ignoreNotBefore: !!this.config.ignoreNotBefore,
+            clockTolerance: this.config.jwtClockTolerance
         });
     } catch (e) {
         this.error(e);
