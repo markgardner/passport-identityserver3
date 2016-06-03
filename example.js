@@ -51,6 +51,13 @@ passport.use(new Identity3Strategy('custom_name', {
     client_secret: 'your_client_secret',
     callback_url: '/login',
     scopes: ['profile', 'offline_access'],
+    // This optional jwt config will be sent to jsonwebtoken to validate the request's access token
+    jwt: {
+        audience: 'your_client_id',
+
+        ignoreNotBefore: true,
+        clockTolerance: 60
+    },
     transformIdentity: function(identity) {
         return identity;
     },

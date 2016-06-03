@@ -14,6 +14,13 @@ function Strategy(identifier, config) {
         throw new Error('The required config settings are not present [client_id, client_secret, callback_url]');
     }
 
+    if(!config.jwt) {
+        config.jwt = {
+            audience: config.audience || config.client_id,
+            issuer: config.issuer
+        };
+    }
+
     passport.Strategy.call(this);
 
     this.name = identifier;
@@ -113,11 +120,7 @@ Strategy.prototype.validateToken = function(token) {
 
         cert = common.formatCert(this.config.keys[0].x5c[0]);
 
-        return jwt.verify(token, cert, {
-            audience: this.config.audience || this.config.client_id,
-            issuer: this.config.issuer,
-            ignoreNotBefore: !!this.config.ignoreNotBefore
-        });
+        return jwt.verify(token, cert, this.config.jwt);
     } catch (e) {
         this.error(e);
     }
@@ -138,6 +141,10 @@ Strategy.prototype.discover = function(config) {
         if(err) { throw err; }
 
         extend(config, data);
+
+        if(config.jwt) {
+            config.jwt.issuer = config.issuer;
+        }
 
         common.json('GET', data.jwks_uri, null, null, function(err, data) {
             if(err) { throw err; }

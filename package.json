@@ -1,6 +1,6 @@
 {
   "name": "passport-identityserver3",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Passport strategy for IdentityServer3 OpenID Connect Provider",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/markgardner/passport-identityserver3",
   "dependencies": {
     "json-extend": "^0.1.0",
-    "jsonwebtoken": "^5.0.4"
+    "jsonwebtoken": "^7.0.0"
   },
   "peerDependencies": {
     "passport": ">= 0.2.2 <= 0.3"
