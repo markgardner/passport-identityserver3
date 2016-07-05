@@ -73,13 +73,13 @@ Client.prototype.callbackUrl = function(req) {
 
 Client.prototype.authorizationUrl = function(req, state) {
     var config = this.config,
-        params = extend({}, config.authorize_params, {
+        params = extend({}, {
             state: state,
             response_type: 'code',
             client_id: config.client_id,
             redirect_uri: this.callbackUrl(req),
             scope: this.scope()
-        });
+        }, config.authorize_params);
 
     return common.addQuery(config.authorization_endpoint, params);
 };
