@@ -1,5 +1,5 @@
 {
-  "name": "passport-identityserver3",
+  "name": "passport-identityserver3-FLIDM",
   "version": "0.6.1",
   "description": "Passport strategy for IdentityServer3 OpenID Connect Provider",
   "main": "index.js",

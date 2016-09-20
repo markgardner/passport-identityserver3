@@ -57,9 +57,9 @@ Strategy.prototype.authenticate = function(req, options) {
                     if(config.transformIdentity.length === 1) {
                         user = config.transformIdentity(user);
 
-                        self.success(user);
+                        self.success(user, data);
                     } else {
-                        config.transformIdentity(user, self.success, self.error);
+                        config.transformIdentity(user, data, self.success, self.error);
                     }
                 } else {
                     self.success(user);
