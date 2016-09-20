@@ -13,7 +13,7 @@ passport.use(new Identity3Strategy('custom_name', {
     client_secret: 'your_client_secret',
     callback_url: '/login',
     scopes: ['profile', 'offline_access'],
-    transformIdentity: function(identity) {
+    transformIdentity: function(identity, tokenData) {
         return identity;
     },
     onEndSession: function(req, res) {
