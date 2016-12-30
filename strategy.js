@@ -17,7 +17,9 @@ function Strategy(identifier, config) {
     if(!config.jwt) {
         config.jwt = {
             audience: config.audience || config.client_id,
-            issuer: config.issuer
+            issuer: config.issuer,
+            ignoreNotBefore: config.ignoreNotBefore || false,
+            ignoreExpiration: config.ignoreExpiration || false
         };
     }
 
