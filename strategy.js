@@ -77,7 +77,8 @@ Strategy.prototype.authenticate = function(req, options) {
             state: state
         };
 
-        this.redirect(this.client.authorizationUrl(req, state));
+        //this.redirect(this.client.authorizationUrl(req, state));
+        this.success({'url': this.client.authorizationUrl(req, state)});
     }
 };
 
