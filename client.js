@@ -1,5 +1,5 @@
 'use strict';
-let common = require('./common'),
+const common = require('./common'),
     extend = require('json-extend');
 
 function Client(config) {
