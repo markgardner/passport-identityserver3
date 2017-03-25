@@ -1,5 +1,5 @@
 'use strict';
-let crypto = require('crypto'),
+const crypto = require('crypto'),
     url = require('url'),
     qs = require('querystring'),
     extend = require('json-extend');
