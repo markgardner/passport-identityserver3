@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:whindes/passport-identityserver3.git"
+    "url": "git@github.com:markgardner/passport-identityserver3.git"
   },
   "keywords": [
     "IdentityServer",
@@ -17,12 +17,12 @@
     "passport",
     "oidc"
   ],
-  "author": "William Hindes",
+  "author": "Mark Gardner",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/whindes/passport-identityserver3/issues"
+    "url": "https://github.com/markgardner/passport-identityserver3/issues"
   },
-  "homepage": "https://github.com/whindes/passport-identityserver3",
+  "homepage": "https://github.com/markgardner/passport-identityserver3",
   "dependencies": {
     "json-extend": "^0.1.0",
     "jsonwebtoken": "^7.0.0"
