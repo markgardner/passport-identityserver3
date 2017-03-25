@@ -1,24 +1,25 @@
-var crypto = require('crypto'),
+'use strict';
+const crypto = require('crypto'),
     url = require('url'),
     qs = require('querystring'),
     extend = require('json-extend');
 
-var agents = {
+let agents = {
     'http:': require('http'),
     'https:': require('https')
 };
 
 function request(method, requestedUrl, headers, body, callback) {
-    var parsedUrl = url.parse(requestedUrl);
+    let parsedUrl = url.parse(requestedUrl);
 
-    var req = agents[parsedUrl.protocol].request({
+    let req = agents[parsedUrl.protocol].request({
         hostname: parsedUrl.hostname,
         port: parsedUrl.port,
         headers: headers,
         path: parsedUrl.pathname,
         method: method
     }, function(res) {
-        var data = '';
+        let data = '';
 
         res.on('data', function(chunk) {
             data += chunk;
@@ -40,15 +41,15 @@ function request(method, requestedUrl, headers, body, callback) {
     }
 }
 
-var instance = module.exports = {
+let instance = module.exports = {
     timeout: 10000,
     addQuery: function(url, params) {
-        var joinChar = ~url.indexOf('?') ? '&' : '?';
+        let joinChar = ~url.indexOf('?') ? '&' : '?';
 
         return url + joinChar + qs.stringify(params);
     },
     formatCert: function(x5c) {
-        var parts = ['-----BEGIN CERTIFICATE-----'];
+        let parts = ['-----BEGIN CERTIFICATE-----'];
 
         while(x5c.length) {
             parts.push(x5c.slice(0, 64));
@@ -64,7 +65,7 @@ var instance = module.exports = {
         return crypto.randomBytes(numOfChars).toString('hex');
     },
     resolveUrl: function(req, absoluteOrRelative) {
-        var headers = req.headers,
+        let headers = req.headers,
             protocol = headers['x-forwarded-proto'] || (req.connection.encrypted ? 'https' : 'http'),
             host = headers.host,
             path = req.url,

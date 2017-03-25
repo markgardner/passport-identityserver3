@@ -1,4 +1,5 @@
-var common = require('./common'),
+'use strict';
+const common = require('./common'),
     extend = require('json-extend');
 
 function Client(config) {
@@ -10,7 +11,7 @@ Client.prototype.scope = function() {
 };
 
 Client.prototype.getTokens = function(req, callback) {
-    var config = this.config,
+    let config = this.config,
         params = {
             grant_type: 'authorization_code',
             code: req.query.code,
@@ -21,7 +22,7 @@ Client.prototype.getTokens = function(req, callback) {
 };
 
 Client.prototype.getProfile = function(req, scopes, claims, callback) {
-    var config = this.config,
+    let config = this.config,
         params = {
             scope: (scopes || []).concat(['openid']).join(' ')
         };
@@ -40,7 +41,7 @@ Client.prototype.getProfile = function(req, scopes, claims, callback) {
 }
 
 Client.prototype.ensureActiveToken = function(req, callback) {
-    var tokens = req.session.tokens,
+    let tokens = req.session.tokens,
         config = this.config,
         params;
 
@@ -72,7 +73,7 @@ Client.prototype.callbackUrl = function(req) {
 };
 
 Client.prototype.authorizationUrl = function(req, state) {
-    var config = this.config,
+    let config = this.config,
         params = extend({}, {
             state: state,
             response_type: 'code',
@@ -85,7 +86,7 @@ Client.prototype.authorizationUrl = function(req, state) {
 };
 
 Client.prototype.getEndSessionUrl = function(req) {
-    var session = req.session,
+    let session = req.session,
         params = {
             id_token_hint: session.tokens.id_token,
             post_logout_redirect_uri: this.config.post_logout_redirect_uri || common.resolveUrl(req, '/')
