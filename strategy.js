@@ -1,4 +1,5 @@
-var passport = require('passport'),
+'use strict';
+const passport = require('passport'),
     jwt = require('jsonwebtoken'),
     extend = require('json-extend'),
     common = require('./common'),
@@ -46,11 +47,11 @@ Strategy.prototype.authenticate = function(req, options) {
             return this.error(new Error('State does not match session.'));
         }
 
-        var self = this,
+        let self = this,
             config = self.config;
 
         this.client.getTokens(req, function(err, data) {
-            var user;
+            let user;
 
             if(err) {
                 self.error(err);
@@ -71,7 +72,7 @@ Strategy.prototype.authenticate = function(req, options) {
             }
         });
     } else {
-        var state = common.randomHex(16);
+        let state = common.randomHex(16);
 
         req.session.tokens = {
             state: state
@@ -90,7 +91,7 @@ Strategy.prototype.profile = function(req, scopes, claims, callback) {
 
 // 5.  RP-Initiated Logout [http://openid.net/specs/openid-connect-session-1_0.html#RPLogout]
 Strategy.prototype.endSession = function(req, res) {
-    var endSessionUrl = this.client.getEndSessionUrl(req);
+    let endSessionUrl = this.client.getEndSessionUrl(req);
 
     // Clean up session for passport just in case express session is not being used.
     req.logout();
@@ -112,7 +113,7 @@ Strategy.prototype.endSession = function(req, res) {
 // 3.1.3.7.  ID Token Validation [http://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation]
 Strategy.prototype.validateToken = function(token) {
     try {
-        var cert;
+        let cert;
 
         if(!this.config.keys || !this.config.keys.length) {
             this.error(new Error('No keys configured for verifying tokens'));
@@ -130,7 +131,7 @@ Strategy.prototype.validateToken = function(token) {
 
 // 4.  Obtaining OpenID Provider Configuration Information [http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig]
 Strategy.prototype.discover = function(config) {
-    var self = this,
+    let self = this,
         origAuth = self.authenticate,
         pendingAuth = [];
 
@@ -156,7 +157,7 @@ Strategy.prototype.discover = function(config) {
             self.authenticate = origAuth;
 
             pendingAuth.forEach(function(pending) {
-                var self = pending.shift();
+                let self = pending.shift();
 
                 origAuth.apply(self, pending);
             });

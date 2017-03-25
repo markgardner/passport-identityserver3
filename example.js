@@ -1,4 +1,5 @@
-var express = require('express'),
+'use strict';
+let express = require('express'),
     session = require('express-session'),
     passport = require('passport'),
     Identity3Strategy = require('./strategy'),
@@ -7,7 +8,7 @@ var express = require('express'),
 // Don't leave this in your production app
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
-var app = express();
+let app = express();
 
 app.use(session({ secret: 'keyboard mouse' }));
 app.use(passport.initialize());
@@ -21,7 +22,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-    var strategy = passport._strategy('custom_name'),
+    let strategy = passport._strategy('custom_name'),
         profileScopes = ['profile'],
         additionalClaims = null; // Optionally you can specify specific claims to request as an array of string.
 
